@@ -107,11 +107,465 @@
     <script src="https://unpkg.com/framer-motion@11.11.17/dist/framer-motion.js"></script>
     <script>window.Motion = window.FramerMotion;</script>
 
-    <!-- Sub-components loaded dynamically via babel -->
-    <script type="text/babel" src="js/FadingVideo.js"></script>
-    <script type="text/babel" src="js/BlurText.js"></script>
-    <script type="text/babel" src="js/Hero.js"></script>
-    <script type="text/babel" src="js/Capabilities.js"></script>
-    <script type="text/babel" src="js/index.js"></script>
+    <!-- Single Inline Script to prevent CORS issues on file:// protocol and script race conditions -->
+    <script type="text/babel">
+        const { useEffect, useRef, useState } = React;
+
+        // Suppress benign Framer Motion warnings
+        const originalError = console.error;
+        console.error = (...args) => {
+            if (args[0] && typeof args[0] === 'string' && (args[0].includes('Framer Motion') || args[0].includes('Warning: Each child in a list'))) {
+                return;
+            }
+            originalError(...args);
+        };
+
+        // FadingVideo Component
+        function FadingVideo({ src, className, style }) {
+            const videoRef = useRef(null);
+            const rafIdRef = useRef(null);
+            const fadingOutRef = useRef(false);
+            const FADE_MS = 500;
+            const FADE_OUT_LEAD = 0.55;
+
+            const fadeTo = (targetOpacity, durationMs) => {
+                if (rafIdRef.current) {
+                    cancelAnimationFrame(rafIdRef.current);
+                }
+
+                const video = videoRef.current;
+                if (!video) return;
+
+                const startOpacity = parseFloat(video.style.opacity) || 0;
+                const opacityDiff = targetOpacity - startOpacity;
+                
+                const startTime = performance.now();
+
+                const animate = (now) => {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / durationMs, 1);
+                    video.style.opacity = startOpacity + opacityDiff * progress;
+
+                    if (progress < 1) {
+                        rafIdRef.current = requestAnimationFrame(animate);
+                    }
+                };
+
+                rafIdRef.current = requestAnimationFrame(animate);
+            };
+
+            useEffect(() => {
+                const video = videoRef.current;
+                if (!video) return;
+
+                video.style.opacity = "0";
+
+                const handleLoadedData = () => {
+                    video.style.opacity = "0";
+                    video.play().catch(err => console.log("Playback prevented:", err));
+                    fadeTo(1, FADE_MS);
+                };
+
+                const handleTimeUpdate = () => {
+                    const duration = video.duration;
+                    const currentTime = video.currentTime;
+                    
+                    if (duration && duration > 0) {
+                        const remaining = duration - currentTime;
+                        if (!fadingOutRef.current && remaining <= FADE_OUT_LEAD && remaining > 0) {
+                            fadingOutRef.current = true;
+                            fadeTo(0, FADE_MS);
+                        }
+                    }
+                };
+
+                const handleEnded = () => {
+                    video.style.opacity = "0";
+                    setTimeout(() => {
+                        if (videoRef.current) {
+                            videoRef.current.currentTime = 0;
+                            videoRef.current.play().catch(err => console.log("Playback prevented on loop:", err));
+                            fadingOutRef.current = false;
+                            fadeTo(1, FADE_MS);
+                        }
+                    }, 100);
+                };
+
+                video.addEventListener('loadeddata', handleLoadedData);
+                video.addEventListener('timeupdate', handleTimeUpdate);
+                video.addEventListener('ended', handleEnded);
+
+                if (video.readyState >= 3) {
+                    handleLoadedData();
+                }
+
+                return () => {
+                    if (rafIdRef.current) {
+                        cancelAnimationFrame(rafIdRef.current);
+                    }
+                    video.removeEventListener('loadeddata', handleLoadedData);
+                    video.removeEventListener('timeupdate', handleTimeUpdate);
+                    video.removeEventListener('ended', handleEnded);
+                };
+            }, [src]);
+
+            return (
+                <video
+                    ref={videoRef}
+                    src={src}
+                    className={className}
+                    style={style}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                />
+            );
+        }
+
+        // BlurText Component
+        function BlurText({ text, className }) {
+            const containerRef = useRef(null);
+            const [isVisible, setIsVisible] = useState(false);
+
+            useEffect(() => {
+                const observer = new IntersectionObserver(
+                    ([entry]) => {
+                        if (entry.isIntersecting) {
+                            setIsVisible(true);
+                            observer.unobserve(entry.target);
+                        }
+                    },
+                    { threshold: 0.1 }
+                );
+
+                if (containerRef.current) {
+                    observer.observe(containerRef.current);
+                }
+
+                return () => {
+                    observer.disconnect();
+                };
+            }, []);
+
+            const words = text.split(" ");
+
+            return (
+                <p
+                    ref={containerRef}
+                    className={className}
+                    style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                        rowGap: "0.1em"
+                    }}
+                >
+                    {words.map((word, i) => {
+                        const delay = i * 0.1;
+                        return (
+                            <Motion.motion.span
+                                key={i}
+                                initial={{ filter: "blur(10px)", opacity: 0, y: 50 }}
+                                animate={
+                                    isVisible
+                                        ? {
+                                              filter: ["blur(10px)", "blur(5px)", "blur(0px)"],
+                                              opacity: [0, 0.5, 1],
+                                              y: [50, -5, 0]
+                                          }
+                                        : {}
+                                }
+                                transition={{
+                                    duration: 0.7,
+                                    times: [0, 0.5, 1],
+                                    ease: "easeOut",
+                                    delay: delay
+                                }}
+                                style={{
+                                    display: "inline-block",
+                                    marginRight: "0.28em"
+                                }}
+                            >
+                                {word}
+                            </Motion.motion.span>
+                        );
+                    })}
+                </p>
+            );
+        }
+
+        // SVG Icons definitions
+        const ArrowUpRight = () => (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 17L17 7M7 7h10v10"></path>
+            </svg>
+        );
+
+        const PlayIcon = () => (
+            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="6,4 20,12 6,20"></polygon>
+            </svg>
+        );
+
+        const ClockIcon = () => (
+            <svg className="w-[28px] h-[28px] text-white" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        );
+
+        const GlobeIcon = () => (
+            <svg className="w-[28px] h-[28px] text-white" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.905 0-5.54-.782-7.843-2.14M21 14.25a15.621 15.621 0 01-18 0" />
+            </svg>
+        );
+
+        const IconAIScenery = () => (
+            <svg className="h-6 w-6 text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21H5Zm1-4h12l-3.75-5-3 4L9 13l-3 4Z" />
+            </svg>
+        );
+
+        const IconBatchProduction = () => (
+            <svg className="h-6 w-6 text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M4 6.47 5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.89-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4Z" />
+            </svg>
+        );
+
+        const IconSmartLighting = () => (
+            <svg className="h-6 w-6 text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1Zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7Z" />
+            </svg>
+        );
+
+        // Hero Component
+        function Hero() {
+            return (
+                <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between">
+                    {/* Background Looping Video */}
+                    <FadingVideo
+                        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4"
+                        className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0"
+                        style={{ width: "120%", height: "120%" }}
+                    />
+
+                    {/* Navbar */}
+                    <header className="fixed top-4 left-0 right-0 px-8 lg:px-16 z-50 flex items-center justify-between pointer-events-none">
+                        <div className="w-12 h-12 rounded-full liquid-glass flex items-center justify-center font-heading italic text-2xl text-white pointer-events-auto">
+                            a
+                        </div>
+
+                        <div className="hidden md:flex items-center gap-1 liquid-glass rounded-full p-1.5 pointer-events-auto">
+                            {["Home", "Voyages", "Worlds", "Innovation", "Plan Launch"].map((link) => (
+                                <a key={link} href="#" className="px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition-colors">
+                                    {link}
+                                </a>
+                            ))}
+                            <button className="flex items-center gap-1.5 px-4 py-2 bg-white text-black text-sm font-medium rounded-full whitespace-nowrap hover:bg-white/90 transition-colors ml-2">
+                                Claim a Spot <ArrowUpRight />
+                            </button>
+                        </div>
+
+                        <div className="w-12 h-12 opacity-0 pointer-events-none" />
+                    </header>
+
+                    {/* Main Content */}
+                    <div className="relative z-10 flex-1 flex flex-col items-center justify-center pt-32 px-4 text-center">
+                        <Motion.motion.div
+                            initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
+                            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+                            className="liquid-glass rounded-full p-1 pr-3 flex items-center gap-3 max-w-md"
+                        >
+                            <span className="bg-white text-black px-3 py-1 text-xs font-semibold rounded-full">New</span>
+                            <span className="text-sm text-white/90 font-body">Maiden Crewed Voyage to Mars Arrives 2026</span>
+                        </Motion.motion.div>
+
+                        <BlurText
+                            text="Venture Past Our Sky Across the Universe"
+                            className="text-6xl md:text-7xl lg:text-[5.5rem] font-heading italic text-white leading-[0.8] max-w-2xl justify-center tracking-[-4px] mt-6"
+                        />
+
+                        <Motion.motion.div
+                            initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
+                            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
+                            className="mt-6 text-sm md:text-base text-white max-w-2xl font-body font-light leading-tight"
+                        >
+                            Discover the universe in ways once unimaginable. Our pioneering vessels and breakthrough engineering bring deep-space exploration within reach—secure and extraordinary.
+                        </Motion.motion.div>
+
+                        <Motion.motion.div
+                            initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
+                            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: "easeOut", delay: 1.1 }}
+                            className="flex items-center gap-6 mt-8"
+                        >
+                            <button className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium text-white flex items-center gap-2 hover:bg-white/10 transition-colors">
+                                <span>Start Your Voyage</span>
+                                <ArrowUpRight />
+                            </button>
+                            <a href="#" className="flex items-center gap-2 text-white hover:text-white/80 transition-colors text-sm font-medium font-body">
+                                <span>View Liftoff</span>
+                                <PlayIcon />
+                            </a>
+                        </Motion.motion.div>
+
+                        <Motion.motion.div
+                            initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
+                            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: "easeOut", delay: 1.3 }}
+                            className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
+                        >
+                            <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] text-left flex flex-col justify-between h-[150px]">
+                                <ClockIcon />
+                                <div className="mt-4">
+                                    <div className="text-4xl font-heading italic text-white tracking-[-1px] leading-none">34.5 Min</div>
+                                    <div className="text-xs text-white font-body font-light mt-2">Average Videos Watch Time</div>
+                                </div>
+                            </div>
+                            <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] text-left flex flex-col justify-between h-[150px]">
+                                <GlobeIcon />
+                                <div className="mt-4">
+                                    <div className="text-4xl font-heading italic text-white tracking-[-1px] leading-none">2.8B+</div>
+                                    <div className="text-xs text-white font-body font-light mt-2">Users Across the Globe</div>
+                                </div>
+                            </div>
+                        </Motion.motion.div>
+                    </div>
+
+                    {/* Partners Row */}
+                    <Motion.motion.div
+                        initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
+                        animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
+                        className="relative z-10 flex flex-col items-center gap-4 pb-8"
+                    >
+                        <div className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white font-body">
+                            Collaborating with top aerospace pioneers globally
+                        </div>
+                        <div className="flex items-center justify-center gap-8 md:gap-16 text-2xl md:text-3xl text-white font-heading italic tracking-tight">
+                            <span>Aeon</span>
+                            <span>·</span>
+                            <span>Vela</span>
+                            <span>·</span>
+                            <span>Apex</span>
+                            <span>·</span>
+                            <span>Orbit</span>
+                            <span>·</span>
+                            <span>Zeno</span>
+                        </div>
+                    </Motion.motion.div>
+                </section>
+            );
+        }
+
+        // Capabilities Component
+        function Capabilities() {
+            return (
+                <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between">
+                    <FadingVideo
+                        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_094631_d30ab262-45ee-4b7d-99f3-5d5848c8ef13.mp4"
+                        className="absolute inset-0 w-full h-full object-cover z-0"
+                    />
+
+                    <div className="relative z-10 px-8 md:px-16 lg:px-20 pt-24 pb-10 flex flex-col min-h-screen justify-between">
+                        <div className="mb-auto">
+                            <p className="text-sm font-body text-white/80 mb-6">// Capabilities</p>
+                            <h2 className="font-heading italic text-white text-6xl md:text-7xl lg:text-[6rem] leading-[0.9] tracking-[-3px]">
+                                Production<br/>evolved
+                            </h2>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+                            {/* Card 1 */}
+                            <div className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col">
+                                <div className="flex items-start justify-between gap-4">
+                                    <div className="w-11 h-11 rounded-[0.75rem] liquid-glass flex items-center justify-center">
+                                        <IconAIScenery />
+                                    </div>
+                                    <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
+                                        {["Natural Context", "Photo Realism", "Infinite Settings", "Eco-Vibe"].map((tag) => (
+                                            <span key={tag} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="flex-1" />
+                                <div className="mt-6 text-left">
+                                    <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">AI Scenery</h3>
+                                    <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">
+                                        AI analyzes your product to create indistinguishable natural environments — from Icelandic cliffs to misty forests.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Card 2 */}
+                            <div className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col">
+                                <div className="flex items-start justify-between gap-4">
+                                    <div className="w-11 h-11 rounded-[0.75rem] liquid-glass flex items-center justify-center">
+                                        <IconBatchProduction />
+                                    </div>
+                                    <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
+                                        {["Scale Fast", "Visual Consistency", "Time Saver", "Ready to Post"].map((tag) => (
+                                            <span key={tag} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="flex-1" />
+                                <div className="mt-6 text-left">
+                                    <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">Batch Production</h3>
+                                    <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">
+                                        Style your entire product line in minutes. Create a unified visual identity for catalogues and social media without weeks of retouching.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Card 3 */}
+                            <div className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col">
+                                <div className="flex items-start justify-between gap-4">
+                                    <div className="w-11 h-11 rounded-[0.75rem] liquid-glass flex items-center justify-center">
+                                        <IconSmartLighting />
+                                    </div>
+                                    <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
+                                        {["Ray Tracing", "Physical Shadows", "Studio Quality", "Sunlight Sync"].map((tag) => (
+                                            <span key={tag} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="flex-1" />
+                                <div className="mt-6 text-left">
+                                    <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">Smart Lighting</h3>
+                                    <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">
+                                        Automatic lighting and material adjustment. Achieve flawless integration with realistic shadows and sunlight.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // App Component
+        function App() {
+            return (
+                <div>
+                    <Hero />
+                    <Capabilities />
+                </div>
+            );
+        }
+
+        // Mount App
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+    </script>
 </body>
 </html>
