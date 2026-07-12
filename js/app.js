@@ -26,14 +26,14 @@ const ARTICLES = [
         excerpt: "Hazine Müsteşarlığı Banka ve Kambiyo tecrübelerimiz ışığında; sermaye hareketlerinin serbestliği ve rezerv biriktirme stratejilerinin değerlendirilmesi.",
         content: `
             <p>Kambiyo rejimi, bir ülkenin küresel finansal sistemle entegrasyon biçimini belirler. Türkiye, 1989 yılında aldığı 32 Sayılı Karar ile sermaye hareketlerini büyük ölçüde serbestleştirmiş ve dışa açık bir büyüme modelini benimsemiştir. Günümüzde ise bu serbestliğin getirdiği fırsatlar ile finansal istikrarsızlık riskleri arasındaki dengeyi kurmak hayati öneme sahiptir.</p>
- 
+
             <h2>Hazine ve Rezerv Yönetiminin Rolü</h2>
             <p>Güçlü merkez bankası rezervleri, dış şoklara karşı en önemli kalkandır. Rezerv biriktirme süreçlerinin şeffaf, piyasa dostu ve öngörülebilir olması gerekir. Rezervlerin kalitesi (swap hariç net rezerv seviyeleri) piyasa aktörleri tarafından yakından izlenmekte ve ülkenin CDS (temerrüt risk primi) oranını doğrudan etkilemektedir.</p>
- 
+
             <blockquote>"Serbest piyasa kurallarından verilen her küçük taviz, uzun vadede daha büyük makroekonomik dengesizliklere kapı aralar."</blockquote>
- 
+
             <h2>Bankacılık Sektörünün Dayanıklılığı</h2>
-            <p>Kambiyo dengesi ile bankacılık sektörünün aktif kalitesi birbirine doğrudan bağlıdir. Yabancı para cinsi borçlanmanın sınırlandırılması ve bankaların açık pozisyon yönetmeliklerine sıkı sıkıya uyması, geçmiş krizlerden çıkardığımız en önemli derslerdir. Regülasyonların geriye dönük değil, geleceğe yönelik risk senaryolarına göre dizayn edilmesi şarttır.</p>
+            <p>Kambiyo dengesi ile bankacılık sektörünün aktif kalitesi birbirine doğrudan bağlıdır. Yabancı para cinsi borçlanmanın sınırlandırılması ve bankaların açık pozisyon yönetmeliklerine sıkı sıkıya uyması, geçmiş krizlerden çıkardığımız en önemli derslerdir. Regülasyonların geriye dönük değil, geleceğe yönelik risk senaryolarına göre dizayn edilmesi şarttır.</p>
         `
     },
     {
@@ -44,12 +44,12 @@ const ARTICLES = [
         excerpt: "Rasyonel insan (Homo Economicus) varsayımının çöküşü ve ekonomiyi sadece sayılardan ibaret gören mekanistik yaklaşımın eleştirisi.",
         content: `
             <p>Modern iktisat, uzun süre insanı tamamen rasyonel, sürekli kendi faydasını maksimize etmeye çalışan matematiksel bir model (Homo Economicus) olarak tasvir etti. Ancak felsefi ve psikolojik gerçekler, kararlarımızın arkasındaki dürtülerin, toplumsal normların ve ahlaki değerlerin bu basitleştirilmiş modelden çok daha karmaşık olduğunu göstermektedir.</p>
- 
+
             <h2>Değer Kuramının Dönüşümü</h2>
-            <p>Adam Smith'in 'Ulusların Zenginliği'nden önce yazdığı 'Ahlaki Duygular Kuramı', iktisadın aslında ahlak felsefesinin bir alt dalı olarak doğduğunu kanıtlar. Fiyat ile değer arasındaki fark, sadece arz ve talep kesişiminde belirlenmez; toplumsal fayda, emek ve adalet kavramları da bu denklemin asli unsurlarıdır.</p>
- 
+            <p>Adam Smith'in 'Ulusların Zenginliği'nden önce yazdığı 'Ahlaki Duygular Kuramı', iktisadın aslında ahlak felsefesinin bir alt dalı olarak doğduğunu kanıtlar. Fiyat ile değer arasındaki fark, sadece arz ve talep kesişiminde belirlenmez; toplumsal fayda, emek ve adalet kavramları juga bu denklemin asli unsurlarıdır.</p>
+
             <blockquote>"Ekonomi sadece kaynakların dağıtımı değil, aynı zamanda toplumun ortak refah ve adalet tasavvurunun somutlaşmış halidir."</blockquote>
- 
+
             <h2>Davranışsal İktisat ve Gelecek</h2>
             <p>Bugün davranışsal finans çalışmaları, piyasaların neden her zaman etkin çalışmadığını açıklarken felsefi temellerden yararlanıyor. İnsanın irrasyonelliğini kabullenen ve iktisadi modelleri bu doğrultuda güncelleyen yeni bir paradigmaya ihtiyacımız var.</p>
         `
@@ -62,10 +62,10 @@ const ARTICLES = [
         excerpt: "Bütçe politikalarının toplumsal sınıflar üzerindeki etkisi ve vergi adaleti reformlarının makroekonomik dengelerdeki kritik önemi.",
         content: `
             <p>Kamu maliyesi, devletin ekonomik hayata müdahale ettiği en doğrudan alandır. Toplanan vergilerin nerelere harcandığı, bütçe ödeneklerinin öncelikleri bir ülkenin kalkınma vizyonunu ve adalet anlayışını net bir şekilde ortaya koyar.</p>
- 
+
             <h2>Dolaylı Vergilerin Ağırlığı Sorunu</h2>
             <p>Türkiye bütçe gelirlerinin büyük bir kısmının KDV ve ÖTV gibi dolaylı vergilere dayanması, gelir adaletsizliğini artırıcı bir etki yapmaktadır. Gelir üzerinden alınan doğrudan vergilerin payının artırılması, vergi tabanının genişletilmesi ve kayıt dışılıkla kararlı mücadele, maliye politikasının öncelikli reform alanı olmalıdır.</p>
- 
+
             <h2>Sosyal Yardımlar ve Yatırım Bütçesi Dengesi</h2>
             <p>Kamu harcamalarında sadece transfer harcamalarına odaklanmak yerine, üretkenliği artıracak altyapı, eğitim ve teknoloji yatırımlarına ağırlık verilmelidir. Refahın kalıcı olması, tüketimin değil üretimin desteklenmesinden geçer.</p>
         `
@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initChart();
     initSearchAndFilters();
     initContactForm();
-    initMouseGlowTracker();
 });
 
 // Theme Logic
@@ -100,6 +99,7 @@ function initTheme() {
     });
 }
 
+// Update Theme Icon
 function updateThemeIcon(theme) {
     const icon = document.querySelector("#theme-toggle i");
     if (theme === "dark") {
@@ -237,7 +237,7 @@ function renderBlogGrid() {
     }
     
     grid.innerHTML = filtered.map(post => `
-        <article class="post-card glow-card">
+        <article class="post-card">
             <div class="post-card-visual">
                 <span class="post-category-tag">${post.category}</span>
                 <i class="fas fa-chart-line" style="font-size: 3.5rem; color: var(--primary-color); opacity: 0.15;"></i>
@@ -262,7 +262,7 @@ function initChart() {
     if (!ctx) return;
     
     const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    const gridColor = isDark ? 'rgba(20, 184, 166, 0.08)' : 'rgba(15, 118, 110, 0.08)';
+    const gridColor = isDark ? '#374151' : '#e2e8f0';
     const textColor = isDark ? '#9ca3af' : '#475569';
     
     const data = {
@@ -272,23 +272,17 @@ function initChart() {
                 label: 'Enflasyon (TÜFE %)',
                 data: [42.1, 41.5, 39.8, 38.2, 36.5, 35.1],
                 borderColor: '#14b8a6',
-                borderWidth: 3,
-                backgroundColor: 'rgba(20, 184, 166, 0.06)',
-                tension: 0.4,
-                fill: true,
-                pointBackgroundColor: '#14b8a6',
-                pointHoverRadius: 7
+                backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                tension: 0.3,
+                fill: true
             },
             {
                 label: 'Politika Faizi (%)',
                 data: [45.0, 45.0, 45.0, 47.5, 47.5, 45.0],
                 borderColor: '#f59e0b',
-                borderWidth: 2,
                 backgroundColor: 'transparent',
                 tension: 0.1,
-                borderDash: [5, 5],
-                pointBackgroundColor: '#f59e0b',
-                pointHoverRadius: 6
+                borderDash: [5, 5]
             }
         ]
     };
@@ -305,9 +299,7 @@ function initChart() {
                     labels: {
                         color: textColor,
                         font: {
-                            family: 'Outfit',
-                            size: 12,
-                            weight: '500'
+                            family: 'Outfit'
                         }
                     }
                 }
@@ -318,10 +310,7 @@ function initChart() {
                         color: gridColor
                     },
                     ticks: {
-                        color: textColor,
-                        font: {
-                            family: 'Inter'
-                        }
+                        color: textColor
                     }
                 },
                 y: {
@@ -329,10 +318,7 @@ function initChart() {
                         color: gridColor
                     },
                     ticks: {
-                        color: textColor,
-                        font: {
-                            family: 'Inter'
-                        }
+                        color: textColor
                     }
                 }
             }
@@ -343,7 +329,7 @@ function initChart() {
 function updateChartTheme(theme) {
     if (!economicChart) return;
     const isDark = theme === "dark";
-    const gridColor = isDark ? 'rgba(20, 184, 166, 0.08)' : 'rgba(15, 118, 110, 0.08)';
+    const gridColor = isDark ? '#374151' : '#e2e8f0';
     const textColor = isDark ? '#9ca3af' : '#475569';
     
     economicChart.options.scales.x.grid.color = gridColor;
@@ -383,19 +369,5 @@ function initContactForm() {
                 <button onclick="window.location.reload()" class="btn btn-primary">Yeni Mesaj Gönder</button>
             </div>
         `;
-    });
-}
-
-// Cursor movement tracking listener for radial glows in modern UI cards
-function initMouseGlowTracker() {
-    document.addEventListener("mousemove", (e) => {
-        const cards = document.querySelectorAll(".glow-card");
-        cards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty("--mouse-x", `${x}px`);
-            card.style.setProperty("--mouse-y", `${y}px`);
-        });
     });
 }

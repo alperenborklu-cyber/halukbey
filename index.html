@@ -1,571 +1,289 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venture Past Our Sky - Space Travel Landing Page</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS (Play CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Tailwind Config Setup -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        heading: ["'Instrument Serif'", "serif"],
-                        body: ["'Barlow'", "sans-serif"]
-                    },
-                    borderRadius: {
-                        DEFAULT: "9999px"
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Liquid-Glass Design System Style Block -->
-    <style>
-        .liquid-glass {
-            background: rgba(255,255,255,0.01);
-            background-blend-mode: luminosity;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border: none;
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        .liquid-glass::before {
-            content: "";
-            position: absolute; 
-            inset: 0;
-            border-radius: inherit;
-            padding: 1.4px;
-            background: linear-gradient(180deg,
-                rgba(255,255,255,0.45) 0%,
-                rgba(255,255,255,0.15) 20%,
-                rgba(255,255,255,0) 40%,
-                rgba(255,255,255,0) 60%,
-                rgba(255,255,255,0.15) 80%,
-                rgba(255,255,255,0.45) 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        .liquid-glass-strong {
-            background: rgba(255,255,255,0.01);
-            background-blend-mode: luminosity;
-            backdrop-filter: blur(50px);
-            -webkit-backdrop-filter: blur(50px);
-            border: none;
-            box-shadow: 4px 4px 4px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.15);
-            position: relative;
-            overflow: hidden;
-        }
-        .liquid-glass-strong::before {
-            content: "";
-            position: absolute; 
-            inset: 0;
-            border-radius: inherit;
-            padding: 1.4px;
-            background: linear-gradient(180deg,
-                rgba(255,255,255,0.5) 0%,
-                rgba(255,255,255,0.2) 20%,
-                rgba(255,255,255,0) 40%,
-                rgba(255,255,255,0) 60%,
-                rgba(255,255,255,0.2) 80%,
-                rgba(255,255,255,0.5) 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-    </style>
-</head>
-<body class="bg-[#000] text-white overflow-x-hidden">
+    <title>Haluk Gündemir - Ekonomi & Felsefe Blogu</title>
     
-    <!-- React Mount Root -->
-    <div id="root"></div>
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Haluk Gündemir - Ekonomist, Hazine Eski Şube Müdürü ve DipBlueTech YK Başkanı. Ekonomi, para politikası, kambiyo rejimleri ve felsefi incelemeler blogu.">
+    <meta name="keywords" content="Haluk Gündemir, Hazine Müsteşarlığı, Ekonomi, Banka ve Kambiyo, Felsefe, Para Politikası, Türkiye Ekonomisi">
+    <meta property="og:title" content="Haluk Gündemir - Ekonomi & Felsefe Blogu">
+    <meta property="og:description" content="Ekonomist olmaya çalışan bir garip, felsefe yapmakla uğraşan bir sefil, kurumsal iletişim yolunda harcanan bir zavallı...">
+    
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-    <!-- React and ReactDOM Libraries -->
-    <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">
+            <div class="logo-icon">HG</div>
+            <span>Haluk Gündemir</span>
+        </div>
+        <nav>
+            <a href="#home" class="active"><i class="fas fa-home"></i> Ana Sayfa</a>
+            <a href="#about"><i class="fas fa-user-tie"></i> Hakkında</a>
+            <a href="#blog"><i class="fas fa-pen-nib"></i> Yazılar</a>
+            <a href="#contact"><i class="fas fa-paper-plane"></i> İletişim</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="theme-btn" id="theme-toggle" aria-label="Karanlık/Aydınlık Tema Değiştirici">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
 
-    <!-- Babel Standalone for Script compilation -->
-    <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
-    <!-- Framer Motion -->
-    <script src="https://unpkg.com/framer-motion@11.11.17/dist/framer-motion.js"></script>
-    <script>window.Motion = window.FramerMotion;</script>
-
-    <!-- Single Inline Script to prevent CORS issues on file:// protocol and script race conditions -->
-    <script type="text/babel">
-        const { useEffect, useRef, useState } = React;
-
-        // Suppress benign Framer Motion warnings
-        const originalError = console.error;
-        console.error = (...args) => {
-            if (args[0] && typeof args[0] === 'string' && (args[0].includes('Framer Motion') || args[0].includes('Warning: Each child in a list'))) {
-                return;
-            }
-            originalError(...args);
-        };
-
-        // FadingVideo Component
-        function FadingVideo({ src, className, style }) {
-            const videoRef = useRef(null);
-            const rafIdRef = useRef(null);
-            const fadingOutRef = useRef(false);
-            const FADE_MS = 500;
-            const FADE_OUT_LEAD = 0.55;
-
-            const fadeTo = (targetOpacity, durationMs) => {
-                if (rafIdRef.current) {
-                    cancelAnimationFrame(rafIdRef.current);
-                }
-
-                const video = videoRef.current;
-                if (!video) return;
-
-                const startOpacity = parseFloat(video.style.opacity) || 0;
-                const opacityDiff = targetOpacity - startOpacity;
-                
-                const startTime = performance.now();
-
-                const animate = (now) => {
-                    const elapsed = now - startTime;
-                    const progress = Math.min(elapsed / durationMs, 1);
-                    video.style.opacity = startOpacity + opacityDiff * progress;
-
-                    if (progress < 1) {
-                        rafIdRef.current = requestAnimationFrame(animate);
-                    }
-                };
-
-                rafIdRef.current = requestAnimationFrame(animate);
-            };
-
-            useEffect(() => {
-                const video = videoRef.current;
-                if (!video) return;
-
-                video.style.opacity = "0";
-
-                const handleLoadedData = () => {
-                    video.style.opacity = "0";
-                    video.play().catch(err => console.log("Playback prevented:", err));
-                    fadeTo(1, FADE_MS);
-                };
-
-                const handleTimeUpdate = () => {
-                    const duration = video.duration;
-                    const currentTime = video.currentTime;
-                    
-                    if (duration && duration > 0) {
-                        const remaining = duration - currentTime;
-                        if (!fadingOutRef.current && remaining <= FADE_OUT_LEAD && remaining > 0) {
-                            fadingOutRef.current = true;
-                            fadeTo(0, FADE_MS);
-                        }
-                    }
-                };
-
-                const handleEnded = () => {
-                    video.style.opacity = "0";
-                    setTimeout(() => {
-                        if (videoRef.current) {
-                            videoRef.current.currentTime = 0;
-                            videoRef.current.play().catch(err => console.log("Playback prevented on loop:", err));
-                            fadingOutRef.current = false;
-                            fadeTo(1, FADE_MS);
-                        }
-                    }, 100);
-                };
-
-                video.addEventListener('loadeddata', handleLoadedData);
-                video.addEventListener('timeupdate', handleTimeUpdate);
-                video.addEventListener('ended', handleEnded);
-
-                if (video.readyState >= 3) {
-                    handleLoadedData();
-                }
-
-                return () => {
-                    if (rafIdRef.current) {
-                        cancelAnimationFrame(rafIdRef.current);
-                    }
-                    video.removeEventListener('loadeddata', handleLoadedData);
-                    video.removeEventListener('timeupdate', handleTimeUpdate);
-                    video.removeEventListener('ended', handleEnded);
-                };
-            }, [src]);
-
-            return (
-                <video
-                    ref={videoRef}
-                    src={src}
-                    className={className}
-                    style={style}
-                    autoPlay
-                    muted
-                    playsInline
-                    preload="auto"
-                />
-            );
-        }
-
-        // BlurText Component
-        function BlurText({ text, className }) {
-            const containerRef = useRef(null);
-            const [isVisible, setIsVisible] = useState(false);
-
-            useEffect(() => {
-                const observer = new IntersectionObserver(
-                    ([entry]) => {
-                        if (entry.isIntersecting) {
-                            setIsVisible(true);
-                            observer.unobserve(entry.target);
-                        }
-                    },
-                    { threshold: 0.1 }
-                );
-
-                if (containerRef.current) {
-                    observer.observe(containerRef.current);
-                }
-
-                return () => {
-                    observer.disconnect();
-                };
-            }, []);
-
-            const words = text.split(" ");
-
-            return (
-                <p
-                    ref={containerRef}
-                    className={className}
-                    style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        justifyContent: "center",
-                        rowGap: "0.1em"
-                    }}
-                >
-                    {words.map((word, i) => {
-                        const delay = i * 0.1;
-                        return (
-                            <Motion.motion.span
-                                key={i}
-                                initial={{ filter: "blur(10px)", opacity: 0, y: 50 }}
-                                animate={
-                                    isVisible
-                                        ? {
-                                              filter: ["blur(10px)", "blur(5px)", "blur(0px)"],
-                                              opacity: [0, 0.5, 1],
-                                              y: [50, -5, 0]
-                                          }
-                                        : {}
-                                }
-                                transition={{
-                                    duration: 0.7,
-                                    times: [0, 0.5, 1],
-                                    ease: "easeOut",
-                                    delay: delay
-                                }}
-                                style={{
-                                    display: "inline-block",
-                                    marginRight: "0.28em"
-                                }}
-                            >
-                                {word}
-                            </Motion.motion.span>
-                        );
-                    })}
-                </p>
-            );
-        }
-
-        // SVG Icons definitions
-        const ArrowUpRight = () => (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 17L17 7M7 7h10v10"></path>
-            </svg>
-        );
-
-        const PlayIcon = () => (
-            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="6,4 20,12 6,20"></polygon>
-            </svg>
-        );
-
-        const ClockIcon = () => (
-            <svg className="w-[28px] h-[28px] text-white" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-        );
-
-        const GlobeIcon = () => (
-            <svg className="w-[28px] h-[28px] text-white" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.905 0-5.54-.782-7.843-2.14M21 14.25a15.621 15.621 0 01-18 0" />
-            </svg>
-        );
-
-        const IconAIScenery = () => (
-            <svg className="h-6 w-6 text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21H5Zm1-4h12l-3.75-5-3 4L9 13l-3 4Z" />
-            </svg>
-        );
-
-        const IconBatchProduction = () => (
-            <svg className="h-6 w-6 text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" d="M4 6.47 5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.89-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4Z" />
-            </svg>
-        );
-
-        const IconSmartLighting = () => (
-            <svg className="h-6 w-6 text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1Zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7Z" />
-            </svg>
-        );
-
-        // Hero Component
-        function Hero() {
-            return (
-                <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between">
-                    {/* Background Looping Video */}
-                    <FadingVideo
-                        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4"
-                        className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0"
-                        style={{ width: "120%", height: "120%" }}
-                    />
-
-                    {/* Navbar */}
-                    <header className="fixed top-4 left-0 right-0 px-8 lg:px-16 z-50 flex items-center justify-between pointer-events-none">
-                        <div className="w-12 h-12 rounded-full liquid-glass flex items-center justify-center font-heading italic text-2xl text-white pointer-events-auto">
-                            a
-                        </div>
-
-                        <div className="hidden md:flex items-center gap-1 liquid-glass rounded-full p-1.5 pointer-events-auto">
-                            {["Home", "Voyages", "Worlds", "Innovation", "Plan Launch"].map((link) => (
-                                <a key={link} href="#" className="px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition-colors">
-                                    {link}
-                                </a>
-                            ))}
-                            <button className="flex items-center gap-1.5 px-4 py-2 bg-white text-black text-sm font-medium rounded-full whitespace-nowrap hover:bg-white/90 transition-colors ml-2">
-                                Claim a Spot <ArrowUpRight />
-                            </button>
-                        </div>
-
-                        <div className="w-12 h-12 opacity-0 pointer-events-none" />
-                    </header>
-
-                    {/* Main Content */}
-                    <div className="relative z-10 flex-1 flex flex-col items-center justify-center pt-32 px-4 text-center">
-                        <Motion.motion.div
-                            initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
-                            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
-                            className="liquid-glass rounded-full p-1 pr-3 flex items-center gap-3 max-w-md"
-                        >
-                            <span className="bg-white text-black px-3 py-1 text-xs font-semibold rounded-full">New</span>
-                            <span className="text-sm text-white/90 font-body">Maiden Crewed Voyage to Mars Arrives 2026</span>
-                        </Motion.motion.div>
-
-                        <BlurText
-                            text="Venture Past Our Sky Across the Universe"
-                            className="text-6xl md:text-7xl lg:text-[5.5rem] font-heading italic text-white leading-[0.8] max-w-2xl justify-center tracking-[-4px] mt-6"
-                        />
-
-                        <Motion.motion.div
-                            initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
-                            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
-                            className="mt-6 text-sm md:text-base text-white max-w-2xl font-body font-light leading-tight"
-                        >
-                            Discover the universe in ways once unimaginable. Our pioneering vessels and breakthrough engineering bring deep-space exploration within reach—secure and extraordinary.
-                        </Motion.motion.div>
-
-                        <Motion.motion.div
-                            initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
-                            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 1.1 }}
-                            className="flex items-center gap-6 mt-8"
-                        >
-                            <button className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium text-white flex items-center gap-2 hover:bg-white/10 transition-colors">
-                                <span>Start Your Voyage</span>
-                                <ArrowUpRight />
-                            </button>
-                            <a href="#" className="flex items-center gap-2 text-white hover:text-white/80 transition-colors text-sm font-medium font-body">
-                                <span>View Liftoff</span>
-                                <PlayIcon />
-                            </a>
-                        </Motion.motion.div>
-
-                        <Motion.motion.div
-                            initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
-                            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeOut", delay: 1.3 }}
-                            className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
-                        >
-                            <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] text-left flex flex-col justify-between h-[150px]">
-                                <ClockIcon />
-                                <div className="mt-4">
-                                    <div className="text-4xl font-heading italic text-white tracking-[-1px] leading-none">34.5 Min</div>
-                                    <div className="text-xs text-white font-body font-light mt-2">Average Videos Watch Time</div>
-                                </div>
-                            </div>
-                            <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] text-left flex flex-col justify-between h-[150px]">
-                                <GlobeIcon />
-                                <div className="mt-4">
-                                    <div className="text-4xl font-heading italic text-white tracking-[-1px] leading-none">2.8B+</div>
-                                    <div className="text-xs text-white font-body font-light mt-2">Users Across the Globe</div>
-                                </div>
-                            </div>
-                        </Motion.motion.div>
+    <!-- Main View Router -->
+    <main>
+        
+        <!-- Home Section -->
+        <section id="home-section" class="page-section active">
+            <div class="hero-container">
+                <div class="hero-text">
+                    <span class="hero-tagline">Hazine, Bankacılık & Felsefe Ekseninde</span>
+                    <h1>Ekonomi ve Hayat Üzerine Denemeler</h1>
+                    <p class="hero-desc">
+                        Hazine Müsteşarlığı Banka ve Kambiyo Genel Müdürlüğü bünyesindeki uzun yıllara dayanan kamu tecrübemi; makroekonomik dinamikler, finansal regülasyonlar, kurumsal yönetim ve iktisat felsefesi perspektifinden paylaştığım kişisel bilgi ve birikim alanı.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#blog" class="btn btn-primary"><i class="fas fa-book-open"></i> Yazıları Oku</a>
+                        <a href="#about" class="btn btn-secondary"><i class="fas fa-info-circle"></i> Özgeçmiş</a>
                     </div>
-
-                    {/* Partners Row */}
-                    <Motion.motion.div
-                        initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
-                        animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
-                        className="relative z-10 flex flex-col items-center gap-4 pb-8"
-                    >
-                        <div className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white font-body">
-                            Collaborating with top aerospace pioneers globally
-                        </div>
-                        <div className="flex items-center justify-center gap-8 md:gap-16 text-2xl md:text-3xl text-white font-heading italic tracking-tight">
-                            <span>Aeon</span>
-                            <span>·</span>
-                            <span>Vela</span>
-                            <span>·</span>
-                            <span>Apex</span>
-                            <span>·</span>
-                            <span>Orbit</span>
-                            <span>·</span>
-                            <span>Zeno</span>
-                        </div>
-                    </Motion.motion.div>
-                </section>
-            );
-        }
-
-        // Capabilities Component
-        function Capabilities() {
-            return (
-                <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between">
-                    <FadingVideo
-                        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_094631_d30ab262-45ee-4b7d-99f3-5d5848c8ef13.mp4"
-                        className="absolute inset-0 w-full h-full object-cover z-0"
-                    />
-
-                    <div className="relative z-10 px-8 md:px-16 lg:px-20 pt-24 pb-10 flex flex-col min-h-screen justify-between">
-                        <div className="mb-auto">
-                            <p className="text-sm font-body text-white/80 mb-6">// Capabilities</p>
-                            <h2 className="font-heading italic text-white text-6xl md:text-7xl lg:text-[6rem] leading-[0.9] tracking-[-3px]">
-                                Production<br/>evolved
-                            </h2>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
-                            {/* Card 1 */}
-                            <div className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col">
-                                <div className="flex items-start justify-between gap-4">
-                                    <div className="w-11 h-11 rounded-[0.75rem] liquid-glass flex items-center justify-center">
-                                        <IconAIScenery />
-                                    </div>
-                                    <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
-                                        {["Natural Context", "Photo Realism", "Infinite Settings", "Eco-Vibe"].map((tag) => (
-                                            <span key={tag} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="flex-1" />
-                                <div className="mt-6 text-left">
-                                    <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">AI Scenery</h3>
-                                    <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">
-                                        AI analyzes your product to create indistinguishable natural environments — from Icelandic cliffs to misty forests.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Card 2 */}
-                            <div className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col">
-                                <div className="flex items-start justify-between gap-4">
-                                    <div className="w-11 h-11 rounded-[0.75rem] liquid-glass flex items-center justify-center">
-                                        <IconBatchProduction />
-                                    </div>
-                                    <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
-                                        {["Scale Fast", "Visual Consistency", "Time Saver", "Ready to Post"].map((tag) => (
-                                            <span key={tag} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="flex-1" />
-                                <div className="mt-6 text-left">
-                                    <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">Batch Production</h3>
-                                    <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">
-                                        Style your entire product line in minutes. Create a unified visual identity for catalogues and social media without weeks of retouching.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Card 3 */}
-                            <div className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col">
-                                <div className="flex items-start justify-between gap-4">
-                                    <div className="w-11 h-11 rounded-[0.75rem] liquid-glass flex items-center justify-center">
-                                        <IconSmartLighting />
-                                    </div>
-                                    <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
-                                        {["Ray Tracing", "Physical Shadows", "Studio Quality", "Sunlight Sync"].map((tag) => (
-                                            <span key={tag} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="flex-1" />
-                                <div className="mt-6 text-left">
-                                    <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">Smart Lighting</h3>
-                                    <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">
-                                        Automatic lighting and material adjustment. Achieve flawless integration with realistic shadows and sunlight.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            );
-        }
-
-        // App Component
-        function App() {
-            return (
-                <div>
-                    <Hero />
-                    <Capabilities />
                 </div>
-            );
-        }
+                <div class="hero-visual">
+                    <div class="hero-shape"></div>
+                    <div class="hero-card">
+                        <div class="profile-img-placeholder">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h2 class="profile-name">Haluk Gündemir</h2>
+                            <p class="profile-title">Bürokrat & Ekonomist</p>
+                            <div class="profile-stats">
+                                <div class="stat-item">
+                                    <div class="stat-num">130</div>
+                                    <div class="stat-label">Gönderi</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-num">258</div>
+                                    <div class="stat-label">Takipçi</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-num">485</div>
+                                    <div class="stat-label">Takip</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        // Mount App
-        const container = document.getElementById('root');
-        const root = ReactDOM.createRoot(container);
-        root.render(<App />);
-    </script>
+            <!-- Interactive Economy Dashboard -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>Türkiye Ekonomisi Takip Paneli</h2>
+                    <p>Mevcut ekonomik göstergeler ve para politikası gidişatı.</p>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div>
+                            <span class="stat-label">Enflasyon (TÜFE Yıllık)</span>
+                            <div class="metric-val">35.1%</div>
+                        </div>
+                        <span class="metric-change down"><i class="fas fa-arrow-down"></i> 1.4%</span>
+                    </div>
+                    <div class="metric-card">
+                        <div>
+                            <span class="stat-label">TCMB Politika Faizi</span>
+                            <div class="metric-val">45.0%</div>
+                        </div>
+                        <span class="metric-change down"><i class="fas fa-arrow-down"></i> 2.5%</span>
+                    </div>
+                    <div class="metric-card">
+                        <div>
+                            <span class="stat-label">CDS Risk Primi</span>
+                            <div class="metric-val">265</div>
+                        </div>
+                        <span class="metric-change down"><i class="fas fa-arrow-down"></i> 12 bps</span>
+                    </div>
+                    <div class="metric-card">
+                        <div>
+                            <span class="stat-label">Büyüme Oranı (GSYH)</span>
+                            <div class="metric-val">3.8%</div>
+                        </div>
+                        <span class="metric-change up"><i class="fas fa-arrow-up"></i> 0.2%</span>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Enflasyon ve Politika Faizi Trendi (2026)</h3>
+                        <span class="stat-label">Kaynak: TCMB / TÜİK</span>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="indicatorsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about-section" class="page-section">
+            <div class="section-header">
+                <h2>Hakkında</h2>
+                <p>Mesleki geçmiş, bürokratik kariyer ve ilgi alanları.</p>
+            </div>
+            
+            <div class="about-grid">
+                <div>
+                    <div class="hero-card" style="max-width: 100%;">
+                        <div class="profile-img-placeholder">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="profile-info" style="text-align: left;">
+                            <h3 style="margin-bottom: 10px;">Uzmanlık Alanları</h3>
+                            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; color: var(--text-secondary);">
+                                <li><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> Kambiyo Rejimi Mevzuatı</li>
+                                <li><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> Bankacılık Regülasyonları</li>
+                                <li><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> Makroekonomik Analiz</li>
+                                <li><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> Kurumsal İletişim</li>
+                                <li><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> Ahlak ve Ekonomi Felsefesi</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Biyografi</h3>
+                    <p style="margin: 15px 0; color: var(--text-secondary);">
+                        İktisat eğitimini tamamladıktan sonra uzun yıllar boyunca devletin en kritik ekonomi birimlerinde, özellikle <strong>Hazine Müsteşarlığı Banka ve Kambiyo Genel Müdürlüğü</strong> bünyesinde Şube Müdürü olarak görev aldım. Türkiye'nin finansal regülasyon süreçlerine, bankacılık denetim sistemlerinin geliştirilmesine ve döviz mevzuatı (32 Sayılı Karar) uygulamalarına yakından şahitlik ettim.
+                    </p>
+                    <p style="margin-bottom: 25px; color: var(--text-secondary);">
+                        Devlet bürokrasisindeki görevlerimin ardından edindiğim tecrübeyi teknoloji ve sosyal sorumluluk alanlarına aktararak, <strong>DipBlueTech</strong> Yönetim Kurulu Başkanı olarak teknoloji vizyonu geliştirilmesinde, ve <strong>MESVAK</strong> vakfında toplumsal yarar projelerinde aktif görevler üstlenmeye devam ediyorum.
+                    </p>
+                    
+                    <h3>Kariyer Kilometre Taşları</h3>
+                    <div class="about-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">Günümüz</div>
+                            <h4>Yönetim Kurulu Başkanı / Vakıf Yöneticisi</h4>
+                            <p style="color: var(--text-secondary);">DipBlueTech bünyesinde teknolojik girişim liderliği ve MESVAK Yönetim Organı üyelikleri.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Geçmiş Dönem</div>
+                            <h4>Şube Müdürü - Banka ve Kambiyo Genel Müdürlüğü</h4>
+                            <p style="color: var(--text-secondary);">Hazine Müsteşarlığı bünyesinde bankacılık, kambiyo rejimleri ve finansal regülasyonların yönetimi.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Başlangıç</div>
+                            <h4>Hazine Uzmanı & İktisatçı</h4>
+                            <p style="color: var(--text-secondary);">Ekonomi politikaları, hazine dengesi ve uluslararası finansal ilişkiler uzmanlık süreci.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog-section" class="page-section">
+            <div class="section-header">
+                <h2>Yazılar ve Makaleler</h2>
+                <p>Türkiye ekonomisi, para teorileri ve iktisat felsefesi üzerine güncel yazılar.</p>
+            </div>
+            
+            <div class="blog-controls">
+                <div class="search-box">
+                    <input type="text" id="search-input" class="search-input" placeholder="Yazılarda ara...">
+                </div>
+                <div class="category-filters">
+                    <button class="filter-chip active">Tümü</button>
+                    <button class="filter-chip">Para Politikası</button>
+                    <button class="filter-chip">Finansal Sektör</button>
+                    <button class="filter-chip">Ekonomi Felsefesi</button>
+                    <button class="filter-chip">Kamu Maliyesi</button>
+                </div>
+            </div>
+            
+            <div id="posts-grid" class="posts-grid">
+                <!-- Dynamically injected via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Post Detail Section -->
+        <section id="post-detail-section" class="page-section">
+            <article id="post-detail-content">
+                <!-- Dynamically injected via JavaScript -->
+            </article>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact-section" class="page-section">
+            <div class="section-header">
+                <h2>İletişim</h2>
+                <p>Görüş, öneri ve işbirlikleri için mesaj gönderebilirsiniz.</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <h3>İrtibat Bilgileri</h3>
+                    <p style="color: var(--text-secondary); margin: 15px 0 30px;">Doğrudan e-posta göndererek ya da sosyal ağlar üzerinden bana ulaşabilirsiniz.</p>
+                    
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>E-posta</h4>
+                            <p style="color: var(--text-secondary);">info@halukgundemir.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4>Konum</h4>
+                            <p style="color: var(--text-secondary);">Ankara, Türkiye</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <form id="contact-form" class="contact-info-card" style="background-color: var(--bg-secondary);">
+                        <div class="form-group">
+                            <label for="contact-name">Adınız Soyadınız</label>
+                            <input type="text" id="contact-name" class="form-control" required placeholder="Örn: Ahmet Yılmaz">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">E-posta Adresiniz</label>
+                            <input type="email" id="contact-email" class="form-control" required placeholder="Örn: ahmet@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Mesajınız</label>
+                            <textarea id="contact-message" class="form-control" rows="5" required placeholder="Mesajınızı buraya yazınız..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Gönder</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-socials">
+            <a href="https://www.instagram.com/gundemirhaluk/" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link" aria-label="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p>&copy; 2026 Haluk Gündemir. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Core App JS -->
+    <script src="js/app.js"></script>
 </body>
 </html>
